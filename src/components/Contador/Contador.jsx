@@ -1,31 +1,26 @@
 import { useState } from 'react'
+import onAdd from '../ItemDetail/ItemDetail'
 
-const Contador = () => {
+const Contador = ({stock, onAdd, initial}) => {
 
-    const [count, setCount] = useState(1)
-    const [stock, setStock] = useState(5)
+    const [count, setCount] = useState(initial)
+
 
     const clickAdd = () => {
-
-        if (stock == 0) {
-            console.log('No tenemos stock')
-        }
-        else {
+        if (count < stock) {
             setCount(count + 1)
-            setStock(stock - 1)
+        }
+
+        else {
+            console.log('No hay stock')
+
         }
     }
+
     const clickRemove = () => {
-
-        if (count == 1) {
-            console.log('Agrega un producto!')
-        }
-        else {
+        if (count > initial) {
             setCount(count - 1)
-            setStock(stock + 1)
-            console.log(stock)
         }
-
     }
 
     return (
@@ -36,12 +31,12 @@ const Contador = () => {
                 <button type='button' className='btn btn-info' onClick={clickAdd}>+</button>
             </div>
             <div>
-                <button type='button' className='btn btn-success' >
+                <button onClick={() => onAdd(count)} type='button' className='btn btn-success' >
                     Agregar al Carrito
                 </button>
             </div>
             <div>
-                <p>Nuestro stock disponible es {stock} </p> 
+                <p>Nuestro stock disponible es {stock} </p>
             </div>
         </div>
 

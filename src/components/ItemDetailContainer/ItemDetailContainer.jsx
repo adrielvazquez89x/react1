@@ -3,12 +3,13 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import products from '../../mock/products'
+import Loader from '../Loader/Loader'
 
 const ItemDetailContainer = () => {
 
-    const {id} = useParams()
+    const { id } = useParams()
 
-    console.log(useParams)
+    //console.log(useParams)
 
     const [item, setItem] = useState({});
 
@@ -25,16 +26,32 @@ const ItemDetailContainer = () => {
     }, [])
     console.log(item)
     return (
-        <div>
-            <div>
-                <h2 className='text-3xl text-center my-6'>
-                    Excelente elección!
-                </h2>
-            </div>
-            <div>
-                <ItemDetail item={item} />
-            </div>
-        </div>
+        <>
+            {
+                item.id
+
+                    ?
+
+                    <div>
+                        <div>
+                            <h2 className='text-3xl text-center my-6'>
+                                Excelente elección!
+                            </h2>
+                        </div>
+                        <div>
+                            <ItemDetail item={item} />
+                        </div>
+                    </div>
+                    
+                    :
+
+                    <div className='flex h-screen justify-center items-center '><Loader/></div>
+        
+        }
+
+
+        </>
+
     )
 }
 
