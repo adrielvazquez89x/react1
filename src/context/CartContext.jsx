@@ -54,7 +54,7 @@ export const CartContextProvider = ({ children }) => {
         return cart.reduce ((acc, product) => acc + product.quantity, 0)
     }
 
-    console.log(cart)
+    //console.log(cart)
 
     return (
         <CartContext.Provider value={{

@@ -2,29 +2,35 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
-import products from '../../mock/products'
+import { getFirestore, doc, getDoc} from 'firebase/firestore'
 import Loader from '../Loader/Loader'
 
 const ItemDetailContainer = () => {
 
     const { id } = useParams()
-
-    //console.log(useParams)
-
     const [item, setItem] = useState({});
 
-    const getItems = () => new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(products.find(product => product.id == id))
-
-        }, 2000);
-    })
-
     useEffect(() => {
-        getItems().then(response => setItem(response))
 
-    }, [])
-    console.log(item)
+        const getItem = async () => {
+            const db = getFirestore()
+            // filtro con doc con el parámetro que definimos en useParams
+            const queryRef = doc(db, "products", id);
+            // recibimos los datos
+            const response = await getDoc(queryRef);
+            // creamos un nuevo objeto con esos datos
+            const newItem = {
+                id: response.id,
+                ...response.data(),
+            };
+
+                setItem(newItem);
+        };
+        getItem();
+
+    }, [id]);
+
+
     return (
         <>
             {
@@ -38,16 +44,16 @@ const ItemDetailContainer = () => {
                                 Excelente elección!
                             </h2>
                         </div>
-                        <div>
+                        <div className='flex'>
                             <ItemDetail item={item} />
                         </div>
                     </div>
-                    
+
                     :
 
-                    <div className='flex h-screen justify-center items-center '><Loader/></div>
-        
-        }
+                    <div className='flex h-screen justify-center items-center '><Loader /></div>
+
+            }
 
 
         </>

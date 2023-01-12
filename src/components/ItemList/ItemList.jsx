@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Item from '../Item/Item'
-import products from '../../mock/products'
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 import Loader from '../Loader/Loader'
 
 
@@ -10,33 +10,30 @@ const ItemList = () => {
 
     //Array de los productos en venta
     const [items, setItems] = useState([])
+    //const [categoryFilter, setCategoryFilter] = useState()
 
-    const getItems = () => {
-        return new Promise((resolve, reject) => {
+    const getItems = async () => {
+        const db = getFirestore()
+        const collectionRef = collection(db, 'products')
+        const snapshot = await getDocs(collectionRef)
+        setItems(snapshot.docs.map(d => ({ id: d.id, ...d.data() })))
 
-            setTimeout(() => {
-                resolve(products)
-            }, 2000);
-
-        })
     }
     //Ver los items por categorias
     const { category } = useParams()
     //    console.log(category)
 
+    const getItemsCategory = async () => {
+        const db = getFirestore()
+        const collectionRef = query(collection(db, 'products'), where('category', '==', category))
+        const snapshot = await getDocs(collectionRef)
+        setItems(snapshot.docs.map(d => ({ id: d.id, ...d.data() })))
+    }
+
     //Cada vez que haya un cambio en la categoria, se produce un render nuevo
     useEffect(() => {
-        if (category) {
-            getItems().then(response => {
-                setItems(response.filter(product => product.category === category))
-            }).catch(error => { console.log(error); })
-        }
-        else {
-            getItems().then(response => {
-                setItems(response)
-            }).catch(error => { console.log(error); })
-        }
-        return () => setItems([])
+        category ? getItemsCategory() : getItems()
+
 
     }, [category])
 
@@ -46,11 +43,11 @@ const ItemList = () => {
                 items.length
 
                     ?
-                    <div className='flex justify-evenly' >
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 max-w-full lg:max-w-7xl m-auto' >
                         {items.map(i => <Item key={i.id} {...i} />)}
                     </div>
                     :
-                    <div className='flex h-screen justify-center items-center '><Loader/></div>
+                    <div className='flex h-screen justify-center items-center '><Loader /></div>
 
             }
 

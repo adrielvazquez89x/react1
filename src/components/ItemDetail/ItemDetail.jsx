@@ -5,7 +5,7 @@ import Contador from '../Contador/Contador'
 
 const ItemDetail = ({ item }) => {
 
-    const { cart, addToCart } = useContext(CartContext)
+    const { addToCart } = useContext(CartContext)
     const [purchase, setPurchase] = useState(false)
 
     //Destructuración del item en cuestion
@@ -18,7 +18,7 @@ const ItemDetail = ({ item }) => {
     }
 
     return (
-        <div className="card lg:card-side bg-base-100 shadow-xl mx-40">
+        <div className="card card-side bg-base-100 shadow-xl mx-auto">
             <figure><img src={img} alt={title} /></figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
@@ -31,13 +31,16 @@ const ItemDetail = ({ item }) => {
                     </div>
 
                 ) : (
-                    <Link to={'/cart'}>
-                        <button className='btn btn-success'> Finalizar Compra</button>
+                    <>
+                        <Link to={'/cart'}>
+                            <button className='btn btn-success'> Finalizar Compra</button>
+                        </Link>
                         <Link to={'/'}>
-                            <p className='mt-4'> Seguir Comprando</p>
+                            <p className='mt-4 hover:font-bold'> Seguir Comprando</p>
                         </Link>
 
-                    </Link>
+                    </>
+
                 )
                 }
             </div>

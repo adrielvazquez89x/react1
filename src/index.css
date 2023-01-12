@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Didact Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,4 +15,28 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.btn {
+  border-radius: 0;
+}
+.btn-error {
+  background-color: #CE4257;
+  color: #ffffff;
+}
+
+.btn-info {
+  background-color: #0EA5E9;
+  color: #ffffff;
+}
+
+.btn-success {
+  background-color: #42E2B8;
+  font-family: 'Play', sans-serif;
+  color: #ffffff;
+  
+
+  
+}
+.font-logo {
+  font-family: 'Play', sans-serif;
 }

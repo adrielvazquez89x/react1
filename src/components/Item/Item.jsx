@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 const Item = ({ title, description, price, id, img }) => {
 
     return (
+        
         <div className='flex'>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <figure><img src={img} alt={title} /></figure>

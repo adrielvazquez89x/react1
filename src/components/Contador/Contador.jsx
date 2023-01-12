@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import onAdd from '../ItemDetail/ItemDetail'
 
 const Contador = ({stock, onAdd, initial}) => {
 
@@ -11,10 +10,6 @@ const Contador = ({stock, onAdd, initial}) => {
             setCount(count + 1)
         }
 
-        else {
-            console.log('No hay stock')
-
-        }
     }
 
     const clickRemove = () => {
@@ -35,8 +30,8 @@ const Contador = ({stock, onAdd, initial}) => {
                     Agregar al Carrito
                 </button>
             </div>
-            <div>
-                <p>Nuestro stock disponible es {stock} </p>
+            <div className='m-auto'>
+                <p>Stock disponible: {stock} </p>
             </div>
         </div>
 
