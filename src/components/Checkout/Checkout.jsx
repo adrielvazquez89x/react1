@@ -39,8 +39,6 @@ const Checkout = () => {
         setBuyer({ ...buyer, [e.target.name]: e.target.value })
     }
 
-    console.log(buyer)
-
     return (
 
         <div className='container m-auto'>
@@ -95,8 +93,6 @@ const Checkout = () => {
                 </div>
 
             </form>
-
-            {console.log(buyer)}
 
             {buyer.name && buyer.surname && buyer.phone && (buyer.email) && (buyer.phone.length >= 7) && emailRegex.test(buyer.email)
                 ? (
